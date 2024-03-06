@@ -1,8 +1,8 @@
 # GlobalOccurrences
 
-**Purpose:** Download and cleaning of occurrence data from GBIF and BIEN based on the species list from PaciFLora. The cleaned occurrence data are then assigned a biogeographic status indicating whether the species is considered to be _native_ or _introduced_ in that region. 
-**Authors:** Katrin Schifferle, Anna Rönnfeldt and Valén Holle
-**Year:** The main workflow was developed between 2022-2023
+**Purpose:** Download and cleaning of occurrence data from GBIF and BIEN based on the species list from PaciFLora. The cleaned occurrence data are then assigned a biogeographic status indicating whether the species is considered to be _native_ or _introduced_ in that region. </br>
+**Authors:** Katrin Schifferle, Anna Rönnfeldt and Valén Holle </br>
+**Year:** The main workflow was developed between 2022-2023 </br>
 
 ## Required data:
 
@@ -33,7 +33,7 @@ Two scripts to download occurrence data from [BIEN](https://biendata.org/) and [
 The downloaded occurrence records from the two sources were then cleaned to remove duplicates and occurrences with erroneous time stamps or coordinates, and harmonised to combine them into one data set at a 1 km resolution. 
 
 ### 3 - status assignment
-The main source for information on the invasion status (native, introduced, contradictory or unknown) of a species occurrence is the [World Checklist of Vascular Plants (WCVP)](http://www.plantsoftheworldonline.org/) at the base resolution of level 3 of tdwg. To close data gaps, two additional sources were used: [Global Inventory of Floras and Traits (GIFT)](https://gift.uni-goettingen.de/home) and [Global Naturalized Alien Flora (GloNAF)](https://glonaf.org/). As the three sources used different terminology to describe the biogeographic invasion status, we harmonised the terminology as _native_ or _introduced_. </br>
+The main source for information on the invasion status (native, introduced, contradictory or unknown) of a species occurrence is the [World Checklist of Vascular Plants (WCVP)](http://www.plantsoftheworldonline.org/) at the base resolution of level 3 of tdwg. To close data gaps, two additional sources were used: [Global Inventory of Floras and Traits (GIFT)](https://gift.uni-goettingen.de/home) and [Global Naturalized Alien Flora (GloNAF)](https://glonaf.org/). As the three sources used different terminology to describe the biogeographic invasion status, we harmonised the terminology as _native_ or _introduced_. 
 
 ### 4 - resolve status conlficts
 Merging the status information from these three sources resulted in some conflicts. If the sources that caused the conflict referred to areas of different sizes (e.g., Honshu and Japan), the status from the source referring to the smaller area is used. If the sources refer to the same area size, two cirteria can be used to deal with conflicts:
