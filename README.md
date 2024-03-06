@@ -6,10 +6,7 @@
 
 ## Required data:
 
-Within this repository: 
-* (spatial data for the delineation of the Pacific Islands (provided by Michael Wohlwend))
-
-External data one has to download to reproduce the workflow in this repository:
+These data have to be downloaded to reproduced this worklfow:
 * the species list from the [PaciFLora](https://bdj.pensoft.net/article/67318/) data set. It lists 3963 vascular plant species known to occur as naturlaised species on the Pacific Islands
 * spatial data corresponding to level 3 [tdwg](https://github.com/tdwg/wgsrpd) regions
 * [GloNAF](https://idata.idiv.de/DDM/Data/ShowData/257) data for the status assignment
