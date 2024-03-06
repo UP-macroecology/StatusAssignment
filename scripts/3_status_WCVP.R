@@ -3,8 +3,6 @@
 library(conflicted)
 library(doParallel)
 library(foreach)
-library(GIFT)
-library(lcvplants)
 library(rWCVP) # required data: remotes::install_github('matildabrown/rWCVPdata')
 library(sf)
 library(stringr)
