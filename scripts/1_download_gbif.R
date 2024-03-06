@@ -1,8 +1,9 @@
-library(tidyverse)
-library(taxize)
-library(rgbif)
-library(foreach)
-library(doParallel)
+
+# NOTE:
+# this script is set up to run on a HPC to run the data download in parallel 
+# you can also run the script locally by adapting the path in line 29 to your 
+# folder structure and by changing the 'dopar' in the foreach loop to 'do'
+
 
 # preamble 
 rm(list = ls())
@@ -26,9 +27,6 @@ sapply(package_vec, install.load.package)
 
 # required paths ------------------------------------------------------------------------
 path_import <- file.path("/import","ecoc9", "data-zurell", "roennfeldt", "C1")
-# path_mnt <- file.path("/mnt", "ibb_share", "zurell", "biodat", "distribution", "Pacific_invaders")
-
-
 
 
 # -------------------------------------------------- #

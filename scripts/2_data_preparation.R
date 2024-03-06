@@ -1,9 +1,9 @@
-# library(CoordinateCleaner)
-# library(countrycode) # to use the function "countrycode"
-# library(tidyverse)
-# 
 
 
+# NOTE:
+# this script is set up to run on a HPC to run the data download in parallel 
+# you can also run the script locally by adapting the path in line 29 to your 
+# folder structure and by changing the 'dopar' in the foreach loop to 'do'
 
 # preamble
 rm(list = ls())
@@ -50,10 +50,7 @@ spp_freq_gbif <- occ_gbif %>%
 
 
 # free up memory
-rm(files)
-rm(spp_freq_bien) # to free up memory
-rm(spp_freq_gbif) # to free up memory
-
+rm(files, spp_freq_bien, spp_freq_gbif)
 
 # harmonise columns
 occ_bien_std <- occ_bien %>% 
@@ -93,11 +90,7 @@ occ_gbif_std = occ_gbif %>%
   mutate(country = countrycode(country, origin = "country.name", destination = "iso3c"))
 
 # free up memory
-rm(occ_bien) # to free up memory
-rm(occ_gbif) # to free up memory
-
-# save(occ_bien_std, file = file.path(path_import, "occ_bien_std.RData"))
-# save(occ_gbif_std, file = file.path(path_import, "occ_gbif_std.RData"))
+rm(occ_bien, occ_gbif) 
 
 
 # clean data -------------------------------------------------------------------
@@ -112,12 +105,9 @@ occ_cleaned <- bind_rows(occ_bien_std, occ_gbif_std) %>%
   clean_coordinates(lon = "lon", lat = "lat", species = "species", countries = "country", 
                     tests = c("centroids", "capitals", "gbif", "institutions"))
 
-# save(occ_cleaned, file = file.path("data", "occ_cleaned.RData"))
-
 
 # free up memory 
-rm(occ_bien_std)
-rm(occ_gbif_std)
+rm(occ_bien_std, occ_gbif_std)
 
 
 # Final subset and filtering ----
