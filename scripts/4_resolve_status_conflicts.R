@@ -83,15 +83,8 @@ save(occ_status_all, file = "data/status_assignment/occ_status_all.RData")
 
 # check for conflicts -----------------------------------------------------
 
-# the data set is too big for my laptop, so I split it into four parts
-
-occ_stat_1 <- occ_status_all[1:10000000,]
-occ_stat_2 <- occ_status_all[10000001:20000000,]
-occ_stat_3 <- occ_status_all[20000001:30000000,]
-occ_stat_4 <- occ_status_all[30000001:38064344,]
-
 # change number x in occ_status_merged_x and occ_stat_x accordingly
-occ_status_merged_4 <- occ_stat_4 %>%
+occ_status_merged <- occ_status_all %>%
   mutate(status_check = case_when(
     
     # ID 1
@@ -233,16 +226,6 @@ occ_status_merged_4 <- occ_stat_4 %>%
 
 
 
-occ_status_merged <- rbind(occ_status_merged_1,
-                           occ_status_merged_2,
-                           occ_status_merged_3,
-                           occ_status_merged_4)
-
-rm(occ_status_merged_1,
-   occ_status_merged_2,
-   occ_status_merged_3,
-   occ_status_merged_4)
-
 table(occ_status_merged$status_check)
 
 # save(occ_status_merged, file = "data/status_assignment/occ_status_merged.RData")
@@ -251,6 +234,10 @@ table(occ_status_merged$status_check)
 # resolve conflicts -------------------------------------------------------
 
 specs <- unique(occ_status_merged$species)
+
+# round the wcvp area and gift area to just one digit
+occ_status_merged$wcvp_area <- round(occ_status_merged$wcvp_area, digits = 1)
+occ_status_merged$gift_area <- round(occ_status_merged$gift_area, digits = 1)
 
 no_cores <- 2
 cl <- makeCluster(no_cores)
@@ -263,6 +250,8 @@ occ_status_resolved <- foreach(s = 1:length(specs), .packages = "dplyr",
                                  
                                  conflict_index <- which(occ_specs$status_check != "native" & occ_specs$status_check != "introduced" &
                                                            occ_specs$status_check != "unknown" & !is.na(occ_specs$status_check))
+                                 
+                                 
                                  
                                  for (i in conflict_index) {
                                    
@@ -450,4 +439,4 @@ occ_status_resolved <- foreach(s = 1:length(specs), .packages = "dplyr",
 
 stopCluster(cl)
 
-save(occ_status_resolved, file = "data/status_assignment/occ_status_resolved.RData")
+save(occ_status_resolved, file = "data/occ_status_resolved.RData")
