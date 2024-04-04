@@ -10,7 +10,7 @@
 
 ## Required data:
 
-These data have to be downloaded to reproduced this worklfow:
+These data have to be downloaded to reproduced this workflow:
 * the species list from the [PaciFLora](https://bdj.pensoft.net/article/67318/) data set. It lists 3963 vascular plant species known to occur as naturlaised species on the Pacific Islands
 * spatial data corresponding to level 3 [tdwg](https://github.com/tdwg/wgsrpd) regions
 * [GloNAF](https://idata.idiv.de/DDM/Data/ShowData/257) data for the status assignment
