@@ -4,6 +4,10 @@
 **Authors:** Katrin Schifferle, Anna Rönnfeldt and Valén Holle </br>
 **Year:** The main workflow was developed between 2022-2023 </br>
 
+## Open Issues
+
+*status assignment: two species (_Guaiacum sanctum_ and _Piper aduncum_) have occurrences on the Pacific Islands that were assigned the status _native_ although it should be _introduced_. The source of the problem is the GIFT assignment, where USA instead of Hawai'i is used as the reference region. This should not be the case with the existing code -> find out where the error occurred. 
+
 ## Required data:
 
 These data have to be downloaded to reproduced this worklfow:
