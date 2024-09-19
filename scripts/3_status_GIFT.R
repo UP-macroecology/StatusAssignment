@@ -20,7 +20,7 @@ rm(list = ls())
 filter <- dplyr::filter
 
 # source for functions
-source("scripts/functions.RData")
+source("scripts/functions.R")
 
 
 
