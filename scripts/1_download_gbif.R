@@ -1,16 +1,23 @@
-
-# NOTE:
+#' ---------------------------
+#
+# Purpose of script: downloading occurrence data from GBIF for the target species list
+# Author: Christian König, Anna Rönnfeldt, Katrin Schifferle
+# Created: 2021, revised by Anna Rönnfeldt in 2023-03
+# Email: roennfeldt@uni-potsdam.de
+#
+# Notes:
 # this script is set up to run on a HPC to run the data download in parallel 
-# you can also run the script locally by adapting the path in line 29 to your 
-# folder structure and by changing the 'dopar' in the foreach loop to 'do'
+# you can also run the script locally by adapting the path to your 
+# folder structure, commenting out the cluster section and by changing the 'dopar' 
+# in the foreach loop to 'do'
+
+#' ---------------------------
 
 
-# preamble 
 rm(list = ls())
 
 
 # required packages ------------------------------------------------------------
-# set up to run on HPC
 
 install.load.package <- function(x) {
   if (!require(x, character.only = TRUE))
@@ -29,9 +36,10 @@ sapply(package_vec, install.load.package)
 path_import <- file.path("/import","ecoc9", "data-zurell", "roennfeldt", "C1")
 
 
-# -------------------------------------------------- #
-#              Define download function           ####
-# -------------------------------------------------- #
+
+# define download function ------------------------------------------------
+
+
 download_species = function(spec_name){
   
   # find gbif_id, prepare download:
@@ -58,23 +66,32 @@ download_species = function(spec_name){
     if (is.null(download_block)) {
       return(NULL)
     } else {
-      return(download_block[,colnames(download_block) %in% c("scientificName", "species", "institutionCode", "datasetName",
-                                                             "decimalLatitude", "decimalLongitude", "year", "coordinateUncertaintyInMeters", 
-                                                             "issues", "geodeticDatum", "establishmentMeans", "countryCode", "country")])
-    }
-  }) 
+      return(download_block[,colnames(download_block) %in% c("scientificName", 
+                                                             "species", 
+                                                             "institutionCode", 
+                                                             "datasetName",
+                                                             "decimalLatitude", 
+                                                             "decimalLongitude", 
+                                                             "year", 
+                                                             "coordinateUncertaintyInMeters", 
+                                                             "issues",
+                                                             "geodeticDatum",
+                                                             "establishmentMeans",
+                                                             "countryCode", 
+                                                             "country")])
+    } # end of ifelse
+  }) # end of lapply
   
   # bind blocked data together
   occ_df = bind_rows(download_list) %>% 
     distinct() %>%
     mutate(species = spec_name, .before = "decimalLatitude") # add the initial input species name
   return(occ_df)
-}
+} # end of function
 
 
-# -------------------------------------------------- #
-#          Loop over species and download         ####
-# -------------------------------------------------- #
+# loop over species and download  -----------------------------------------
+
 
 # species data 
 load(file.path(path_import, "PaciFLora_species_list.RData")) # object is called "species_names"
@@ -108,8 +125,8 @@ foreach(spec_name = inv_specs_final, .packages = c("tidyverse", "taxize", "rgbif
       cat("download error:", spec_name, "\n")
       Sys.sleep(15)
       iter <<- iter + 1
-    })
-  }
-}  
+    }) # end of tryCatch
+  } # end of while
+}  # end of foreach
 
 stopCluster(cl)
