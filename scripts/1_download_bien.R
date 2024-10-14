@@ -1,10 +1,17 @@
-
-# NOTE:
+#' ---------------------------
+#
+# Purpose of script: downloading occurrence data from BIEN for the target species list
+# Author: Christian König, Anna Rönnfeldt, Katrin Schifferle
+# Created: 2021, revised by Anna Rönnfeldt in 2023-03
+# Email: roennfeldt@uni-potsdam.de
+#
+# Notes:
 # this script is set up to run on a HPC to run the data download in parallel 
 # you can also run the script locally by adapting the path in line 29 to your 
-# folder structure and by changing the 'dopar' in the foreach loop to 'do'
+# folder structure, commenting out the cluster section and by changing the 'dopar' 
+# in the foreach loop to 'do'
 
-
+#' ---------------------------
 
 # preamble
 rm(list = ls())
@@ -28,9 +35,9 @@ sapply(package_vec, install.load.package)
 # required paths ------------------------------------------------------------------------
 path_import <- file.path("/import","ecoc9", "data-zurell", "roennfeldt", "C1")
 
-# -------------------------------------------------- #
-#              Define download function           ####
-# -------------------------------------------------- #
+
+# define download function ------------------------------------------------
+
 download_species <- function(spec_name){
   # download BIEN occurrence data for 'spec_name'
   occ_df = BIEN_occurrence_species(spec_name, 
@@ -41,16 +48,24 @@ download_species <- function(spec_name){
   if (nrow(occ_df) == 0) { # if no occurrences available --> return NULL
     return(NULL)
   } else { # else --> return only relevant columns
-    return(occ_df[,colnames(occ_df) %in% c("latitude", "longitude", "date_collected",
-                                           "country", "datasource", "dataset",
-                                           "is_introduced", "native_status", "native_status_country")] %>%
-             mutate(species = spec_name, .before = "latitude"))
-  }
-}
+    return(occ_df[,colnames(occ_df) %in% c("latitude", 
+                                           "longitude", 
+                                           "date_collected",
+                                           "country", 
+                                           "datasource", 
+                                           "dataset",
+                                           # note that the info on native/introduced status was not used in for the final status assignment
+                                           "is_introduced", 
+                                           "native_status", 
+                                           "native_status_country")] %>%
+             mutate(species = spec_name, .before = "latitude")) # end of return
+  } # end of ifelse
+} # end of function
 
-# -------------------------------------------------- #
-#          Loop over species and download         ####
-# -------------------------------------------------- #
+
+
+# loop over species and download ------------------------------------------
+
 
 # species data 
 load(file.path(path_import, "PaciFLora_species_list.RData")) # object is called "species_names"
@@ -86,8 +101,8 @@ foreach(spec_index = 1:length(inv_specs_final), .packages = c("tidyverse", "BIEN
       cat("download error:", spec_name, "\n")
       Sys.sleep(15)
       iter <<- iter + 1
-    })
-  }  
-}  
+    }) # end of tryCatch
+  } # end of while
+}  # end of foreach
 
 stopCluster(cl)
