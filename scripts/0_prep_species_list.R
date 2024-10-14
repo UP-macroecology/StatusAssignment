@@ -1,3 +1,15 @@
+#' ---------------------------
+#
+# Purpose of script: Preparing the input species list. Here based on the PaciFlora data set
+# Author: Anna Rönnfeldt
+# Date Created: 2023-03
+# Email: roennfeldt@uni-potsdam.de
+#
+# Notes: /
+#
+#' ---------------------------
+
+
 library(tidyverse)
 
 rm(list = ls())
@@ -33,7 +45,7 @@ for (i in 1:nrow(species_names)) {
     # remove "x" completely from the second column
     species_names[i,"species_no_x"] <- gsub(x = species_names[i,"species_no_x"], pattern = "_x", replacement = "")
   } # end of if 
-}
+} # end of for loop over species_names
 
 
 save(species_names, file = "data/PaciFLora_species_list.RData")
