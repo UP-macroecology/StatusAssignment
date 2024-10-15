@@ -1,3 +1,19 @@
+#' ---------------------------
+#
+# Purpose of script: accessing the information on the biogeographic status of the 
+# target species from GloNAF and matching them with their occurrences
+# Author: Katrin Schifferle, Anna Rönnfeldt
+# Date Created: 2022, revised by Anna Rönnfeldt in 2023-05
+# Email: roennfeldt@uni-potsdam.de
+#
+# Notes: /
+#
+#' ---------------------------
+
+
+# preamble ----------------------------------------------------------------
+
+
 # packages 
 library(conflicted)
 library(sf)
@@ -11,7 +27,7 @@ rm(lsit = ls())
 
 # load data ---------------------------------------------------------------
 
-load("data/PaciFLora_species_list.RData")
+load("data/PaciFLora_species_list.RData") # species list, object name: species_names
 specs <- species_names$species_changed
 rm(species_names)
 
@@ -27,6 +43,7 @@ species_dt <- read.delim(file = "data/GloNAF/Taxon_x_List_GloNAF_vanKleunenetal2
 region_dt <- read.delim(file = "data/GloNAF/Region_GloNAF_vanKleunenetal2018Ecology.csv", sep = ",")
 list_dt <- read.delim(file = "data/GloNAF/List_GloNAF_vanKleunenetal2018Ecology.csv", sep = ",")
 
+# merge the different GloNAF data frames
 glonaf_dt <- species_dt %>%
   left_join(region_dt) %>%
   left_join(list_dt) %>%
@@ -67,4 +84,4 @@ glonaf_status_info <- glonaf_dt %>%
 save(glonaf_status_info, file = "data/status_assignment/GloNAF_status.RData")
 
 
-# glonaf provides no polygons, so the status information will be added to the information form the other two status sources and the species occurrences in script 4
+# glonaf provides no polygons, so the status information will be added to the information from the other two status sources and the species occurrences in script 4

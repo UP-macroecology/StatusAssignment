@@ -1,3 +1,17 @@
+#' ---------------------------
+#
+# Purpose of script: merging the status information from WCVP, GIFT and GloNAF, 
+# identifying onflicting informaiton and resolving conflicts where possible
+# Author: Anna Rönnfeldt
+# Date Created: 2023-09
+# Email: roennfeldt@uni-potsdam.de
+#
+# Notes: merging GloNAf data with the occurrences was run locally, split into chunks. 
+# Adapt the code to run on a HPC if desired.
+# The section where status conflicts are resolved is already designed for a HPC
+#
+#' ---------------------------
+
 
 # preamble ----------------------------------------------------------------
 
@@ -9,6 +23,8 @@ library(sf)
 library(tibble)
 library(tidyr)
 
+
+rm(list = ls())
 
 # load data ---------------------------------------------------------------
 
@@ -45,6 +61,7 @@ unique_sr_long <- unique(occ_status_all[c("species", "wcvp_LEVEL3_COD")]) %>%
 
 # save(unique_sr_long, file = "data/status_assignment/unique_sr.RData")
 
+# define subset to merge (change index values as you progress)
 unique_sr <- unique_sr_long[116500:119814,] # only work with the ones that have not yet been included
 
 counter <- 0
@@ -239,6 +256,7 @@ specs <- unique(occ_status_merged$species)
 occ_status_merged$wcvp_area <- round(occ_status_merged$wcvp_area, digits = 1)
 occ_status_merged$gift_area <- round(occ_status_merged$gift_area, digits = 1)
 
+# set up cluster for parallel processing
 no_cores <- 2
 cl <- makeCluster(no_cores)
 registerDoParallel(cl)

@@ -130,7 +130,7 @@ occ_cleaned_slim <- occ_cleaned %>%
 save(occ_cleaned_slim, file =  file.path(path_import, "occ_cleaned_slim.RData"))
 
 
-# save unique species names available in occ_cleaned_slim
-spp_initial_list <- sort(unique(occ_cleaned_slim$species))
-save(spp_initial_list, file = file.path(path_import, "spp_initial_list.RData"))
+# # unique species names available in occ_cleaned_slim
+# spp_initial_list <- sort(unique(occ_cleaned_slim$species))
+# save(spp_initial_list, file = file.path(path_import, "spp_initial_list.RData"))
 

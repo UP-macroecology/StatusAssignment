@@ -1,6 +1,7 @@
 #' ---------------------------
 #
-# Purpose of script:
+# Purpose of script: accessing the information on the biogeographic status of the 
+# target species from GIFT and matching them with their occurrences
 # Author: Katrin Schifferle, Anna Rönnfeldt
 # Date Created: 2022, revised in 2023-05 by Anna Rönnfeldt
 # Email: roennfeldt@uni-potsdam.de

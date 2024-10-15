@@ -1,3 +1,16 @@
+#' ---------------------------
+#
+# Purpose of script: accessing the information on the biogeographic status of the 
+# target species from WCVP and matching them with their occurrences
+# Author: Katrin Schifferle, Anna Rönnfeldt
+# Date Created: 2022, revised by Anna Rönnfeldt in 2023-05
+# Email: roennfeldt@uni-potsdam.de
+#
+# Notes: the entire process takes a long time. Save intermediate outputs when necessary
+# code lines for saving already provided as comment
+# mergeing the WCVP status with occurrences is designed to run on a HPC
+#
+#' ---------------------------
 
 # packages 
 library(conflicted)
@@ -9,9 +22,7 @@ library(stringr)
 library(tidyverse)
 library(units)
 
-# Note:
-# the entire process takes a long time. Save intermediate outputs when necessary
-# code lines for saving already provided as comment
+
 
 # preamble ----------------------------------------------------------------
 
@@ -25,12 +36,12 @@ source("scripts/functions.RData")
 
 # load data ---------------------------------------------------------------
 
-load("data/PaciFLora_species_list.RData")
+load("data/PaciFLora_species_list.RData") # species list, object name: species_names
 specs <- species_names$species_changed
 rm(species_names)
 
-load("data/occ_cleaned_slim.RData")
-tdwg <- st_read("data/spatial_data/level3.geojson")
+load("data/occ_cleaned_slim.RData") # cleaned occurrence data
+tdwg <- st_read("data/spatial_data/level3.geojson") # tdwg region level 3
 
 # WCVP species distributions ----------------------------------------------
 
@@ -69,11 +80,9 @@ wcvp_status <- foreach(s = 1:length(wcvp_specs), .packages = c("dplyr"), .combin
     relocate(species)
   
   # calculate area and make sure it is in km^2 so that it is comparable to the gift polygons
-  
   distribution <- distribution %>% mutate(area = drop_units(set_units(sf::st_area(distribution), "km^2")))
   
-  # output
-  distribution
+  distribution   # output
   
 } # end of foreach
 
