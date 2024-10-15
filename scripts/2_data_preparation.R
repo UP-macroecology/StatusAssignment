@@ -1,9 +1,14 @@
+#' ---------------------------
+#
+# Purpose of script: merging BIEN and GBIF occurrence data + data cleaning
+# Author: Christian König, Anna Rönnfeldt, Katrin Schifferle
+# Date Created: 2021, revised 2023 by Anna Rönnfeldt
+# Email: roennfeldt@uni-potsdam.de
+#
+# Notes: /
+#
+#' ---------------------------
 
-
-# NOTE:
-# this script is set up to run on a HPC to run the data download in parallel 
-# you can also run the script locally by adapting the path in line 29 to your 
-# folder structure and by changing the 'dopar' in the foreach loop to 'do'
 
 # preamble
 rm(list = ls())
@@ -37,7 +42,7 @@ length(unique(occ_bien$species)) #  3655 species
 spp_freq_bien <- occ_bien %>%
   group_by(species) %>%
   tally() %>%
-  arrange(desc(n))# number of records per species
+  arrange(desc(n)) # number of records per species
 
 # GBIF data
 files <- list.files(file.path(path_import, "download_gbif"), ignore.case = FALSE, full.names = TRUE)
