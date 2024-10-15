@@ -1,3 +1,20 @@
+#' ---------------------------
+#
+# Purpose of script:
+# Author: Katrin Schifferle, Anna Rönnfeldt
+# Date Created: 2022, revised in 2023-05 by Anna Rönnfeldt
+# Email: roennfeldt@uni-potsdam.de
+#
+# Notes: running the code to obtain status information takes a long time if run
+# on a local machine. Adapt code to run on a HPC or save intermediate outputs 
+# (code lines for saving already provided as comment)
+# The section where the status data are merged with the occurrence data is 
+# already designed to run on a HPC as is
+#
+#' ---------------------------
+
+# preamble ----------------------------------------------------------------
+
 # packages 
 library(conflicted)
 library(doParallel)
@@ -9,11 +26,6 @@ library(stringr)
 library(tidyverse)
 library(units)
 
-# Note:
-# the entire process takes a long time. Save intermediate outputs when necessary
-# code lines for saving already provided as comment
-
-# preamble ----------------------------------------------------------------
 
 rm(list = ls())
 
@@ -23,15 +35,13 @@ filter <- dplyr::filter
 source("scripts/functions.R")
 
 
-
 # load data ---------------------------------------------------------------
 
-load("data/PaciFLora_species_list.RData")
+load("data/PaciFLora_species_list.RData") # species list, object name: species_names
 specs <- species_names$species_changed
 rm(species_names)
 
-load("data/occ_cleaned_slim.RData")
-
+load("data/occ_cleaned_slim.RData") # cleaned occurrence data
 
 
 # get GIFT names ----------------------------------------------------------
@@ -104,7 +114,7 @@ GIFT_status <- GIFT_status[-list_index]
 
 GIFT_status_all_details <- bind_rows(GIFT_status)
 
-#rename the statuses based on the distinct combinations
+# rename the status info based on the distinct combinations
 # based on: https://biogeomacro.github.io/GIFT/articles/GIFT_tutorial.html#species-distribution
 
 GIFT_status <- GIFT_status_all_details %>%
@@ -131,6 +141,7 @@ GIFT_polygons <- GIFT_shape(unique(GIFT_status$entity_ID), GIFT_version = "beta"
 # get number of species for which GIFT status was available
 specs_gift <- unique(GIFT_status$species)
 
+# set up cluster for parallel processing
 no_cores <- 2
 cl <- makeCluster(no_cores)
 registerDoParallel(cl)
