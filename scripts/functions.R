@@ -4,7 +4,7 @@ library(GIFT) # install from GitHub with: devtools::install_github("https://gith
 DIFFLIB <- reticulate::import("difflib") # load Python module
 
 
-
+# written by Katrin Schifferle
 getGiftNames <- function(spec, incl_lcvp_synonyms = FALSE){
   
   # searches for species name in GIFT dataset, checks species name against LCVP (on which blacklist is based),
@@ -79,6 +79,7 @@ getGiftNames <- function(spec, incl_lcvp_synonyms = FALSE){
 }
 
 
+# written by Katrin Schifferle
 getGiftStatusInf <- function(searched_name, GIFT_spec_genus, GIFT_spec_epithet){
   
   # extracts status information from GIFT
