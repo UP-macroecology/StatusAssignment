@@ -22,9 +22,6 @@ library(tidyverse)
 
 filter <- dplyr::filter
 
-rm(lsit = ls())
-
-
 # load data ---------------------------------------------------------------
 
 load("data/PaciFLora_species_list.RData") # species list, object name: species_names

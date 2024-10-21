@@ -28,7 +28,9 @@ library(tidyverse)
 library(units)
 
 
-rm(list = ls())
+
+# preamble ----------------------------------------------------------------
+
 
 filter <- dplyr::filter
 

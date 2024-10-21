@@ -24,8 +24,6 @@ library(tibble)
 library(tidyr)
 
 
-rm(list = ls())
-
 # load data ---------------------------------------------------------------
 
 # status information from the different sources
