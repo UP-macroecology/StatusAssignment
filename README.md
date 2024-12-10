@@ -39,4 +39,4 @@ There are three scripts, each handling the status assignment based on one of the
 Merging the status information from these three sources resulted in some conflicts. If the sources that caused the conflict referred to areas of different sizes (e.g., Honshu and Japan), the status from the source referring to the smaller area is used. If the sources refer to the same area size, two cirteria can be used to deal with conflicts:
 
 * **Criterion 1**: All sources are weighted equally. Occurrences with conflicts in the status assignment get the status *contradictory*.
-* **Criterion 2**: Status information provided by WCVP is perferred, because it has been targeted towards the level 3 resolution of tdwg.
+* **Criterion 2**: Status information provided by WCVP is preferred, because it has been targeted towards the level 3 resolution of tdwg.
