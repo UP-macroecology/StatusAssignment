@@ -40,3 +40,10 @@ Merging the status information from these three sources resulted in some conflic
 
 * **Criterion 1**: All sources are weighted equally. Occurrences with conflicts in the status assignment get the status *contradictory*.
 * **Criterion 2**: Status information provided by WCVP is preferred, because it has been targeted towards the level 3 resolution of tdwg.
+
+## Operating system info
+
+* R version 4.2.2 (2022-10-31 ucrt)
+* Platform: x86_64-w64-mingw32/x64 (64-bit)
+* Running under: Windows 10 x64 (build 19045)
+* Attached packages:  [1] BIEN_1.26 [2] conflicted_1.2.0.9000 [3] CoordinateCleaner_3.0.1 [4] doParallel_1.0.17 [5] fasterize_1.0.4 [6] foreach_1.5.2 [7] GIFT_1.0.0 [8] lcvplants_2.1.0 [9] rgbif_3.7.5 [10] rWCVP_1.2.4 [11] sf_1.0-16 [12] taxize_0.9.100 [13] tibble_3.2.1 [14] tidyverse_2.0.0 [15] terra_1.7-78 [16] units_0.8-5
