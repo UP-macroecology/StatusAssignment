@@ -3,7 +3,7 @@
 **Purpose:** Download and cleaning of occurrence data from GBIF and BIEN based on the species list from PaciFLora. The cleaned occurrence data are then assigned a biogeographic status indicating whether the species is considered to be _native_ or _introduced_ in that region. </br>
 **Authors:** Katrin Schifferle, Anna Rönnfeldt and Valén Holle </br>
 **Year:** The main workflow was developed between 2022-2023 </br>
-
+**Funding:** This study was supported by the German Research Foundation DFG (grant no. ZU 361/3-1 to DZ)
 
 ## Required data:
 
