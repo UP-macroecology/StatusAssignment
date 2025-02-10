@@ -5,7 +5,8 @@
 # Date Created: 2021, revised 2023 by Anna Rönnfeldt
 # Email: roennfeldt@uni-potsdam.de
 #
-# Notes: /
+# Notes: This script was designed do be run remotely on a HPC. 
+# Adjust your file paths accordingly to recreate the workflow. 
 #
 #' ---------------------------
 
@@ -28,7 +29,7 @@ sapply(package_vec, install.load.package)
 
 
 # required paths ------------------------------------------------------------------------
-path_import <- file.path("/import","ecoc9", "data-zurell", "roennfeldt", "C1")
+path_import <- file.path("")
 
 # load and prep data -----------------------------------------------------------
 
@@ -70,7 +71,7 @@ occ_bien_std <- occ_bien %>%
   # Kosovo has no ISO3c code -> gets country code NA -> think about fixing this
   mutate(country = replace(country, country == "Micronesia", "Micronesia (Federated States of)")) %>% # not in previous ChrK-version!
   mutate(year = lubridate::year(year), 
-         country = countrycode(country, origin = "country.name", destination = "iso3c"))
+         country = countrycode(country, origin = "country.name", destination = "iso3c")) 
 
 
 occ_gbif_std = occ_gbif %>% 
@@ -114,20 +115,13 @@ rm(occ_bien_std, occ_gbif_std)
 
 # Final subset and filtering ----
 
-# 26,704,899 occurrences before this step 
-
 occ_cleaned_slim <- occ_cleaned %>% 
   dplyr::filter(.summary == TRUE) %>% # remove occurrences that were flagged by coordinateCleaner
   rowid_to_column(var = "occ_id") %>% # create unique identifier for each occurrence
   dplyr::select(occ_id, species, lon, lat, country, year, datasource, dataset, native) # select only relevant columns
 
 
-# 38,211,283 occurrences after this step
-
 save(occ_cleaned_slim, file =  file.path(path_import, "occ_cleaned_slim.RData"))
 
-
-# # unique species names available in occ_cleaned_slim
-# spp_initial_list <- sort(unique(occ_cleaned_slim$species))
-# save(spp_initial_list, file = file.path(path_import, "spp_initial_list.RData"))
+gc()
 
