@@ -30,7 +30,7 @@ sapply(package_vec, install.load.package)
 
 
 # required paths ------------------------------------------------------------------------
-path_import <- file.path("/import","ecoc9", "data-zurell", "roennfeldt", "C1")
+path_import <- file.path("")
 
 
 
