@@ -7,8 +7,7 @@
 #
 # Notes:
 # this script is set up to run on a HPC to run the data download in parallel 
-# you can also run the script locally by adapting the path in line 29 to your 
-# folder structure, commenting out the cluster section and by changing the 'dopar' 
+# you can also run the script locally by adapting the file path accordingly, commenting out the cluster section and by changing the 'dopar' 
 # in the foreach loop to 'do'
 
 #' ---------------------------
@@ -31,7 +30,7 @@ sapply(package_vec, install.load.package)
 
 
 # required paths ------------------------------------------------------------------------
-path_import <- file.path("/import","ecoc9", "data-zurell", "roennfeldt", "C1")
+path_import <- file.path("")
 
 
 # define download function ------------------------------------------------
@@ -104,3 +103,4 @@ foreach(spec_index = 1:length(inv_specs_final), .packages = c("tidyverse", "BIEN
 }  # end of foreach
 
 stopCluster(cl)
+gc()
