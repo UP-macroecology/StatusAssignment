@@ -5,7 +5,7 @@
 **Year:** The main workflow was developed between 2022-2023 </br>
 **Funding:** This study was supported by the German Research Foundation DFG (grant no. ZU 361/3-1 to DZ)
 
-## Required data:
+## Required data
 
 These data have to be downloaded to reproduced this workflow:
 * the species list from the [PaciFLora](https://bdj.pensoft.net/article/67318/) data set. It lists 3963 vascular plant species known to occur as naturalised species on the Pacific Islands
